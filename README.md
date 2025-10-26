@@ -42,7 +42,6 @@
 
   <section>
     <h2>⚙️ Come funziona</h2>
-
     <h3>1️⃣ Raccolta e analisi dei dati</h3>
     <p>Il sistema analizza dati HR storici e correnti provenienti da:</p>
     <ul>
@@ -52,11 +51,9 @@
       <li>Carichi di lavoro e performance</li>
     </ul>
     <p>Dataset di riferimento: <a href="https://www.kaggle.com/datasets/ankam6010/synthetic-hr-burnout-dataset" target="_blank">Synthetic HR Burnout Dataset (Kaggle)</a></p>
-
     <h3>2️⃣ Modello predittivo</h3>
     <p>Un modello di <strong>Machine Learning supervisionato</strong> (Random Forest / XGBoost) stima la probabilità di burnout per ogni dipendente.</p>
     <p>L’algoritmo classifica il rischio in <strong>Basso / Medio / Alto</strong> e aggiorna le previsioni in tempo reale.</p>
-
     <h3>3️⃣ Dashboard interattiva</h3>
     <p>Una dashboard HR (Streamlit / React + Chart.js) mostra:</p>
     <ul>
@@ -65,7 +62,6 @@
       <li>Indicatori di stress aggregati</li>
       <li>Raccomandazioni operative personalizzate</li>
     </ul>
-
     <h3>4️⃣ Motore di ottimizzazione</h3>
     <p>Il sistema propone <strong>nuove schedulazioni di lavoro</strong> ottimizzate per ridurre lo stress complessivo, bilanciando carichi e turni in base ai vincoli HR.</p>
   </section>
@@ -107,7 +103,7 @@
 
   <section>
     <h2>👥 Team iParthenope</h2>
-    <p>Un team multidisciplinare di sviluppatori, data scientist e designer, con l’obiettivo di dimostrare come l’AI possa migliorare la vita lavorativa e l’efficienza aziendale.</p>
+    <p>Un team multidisciplinare di sviluppatori e data scientist, con l’obiettivo di dimostrare come l’AI possa migliorare la vita lavorativa e l’efficienza aziendale.</p>
   </section>
 
   <section>
