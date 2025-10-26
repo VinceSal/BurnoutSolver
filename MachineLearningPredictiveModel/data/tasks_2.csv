@@ -1,0 +1,11 @@
+Name,Age,Gender,JobRole,Experience,WorkHoursPerWeek,RemoteRatio,SatisfactionLevel,StressLevel,TaskScore,Task
+Max Wang,40,Female,Sales,9,47,67,2.09,9,0.9,Medium
+Nina Petrov,33,Female,Sales,2,44,20,2.58,8,0.9,High
+Lily Wang,22,Male,Sales,1,30,5,1.44,2,0.2,Low
+Ivan Wang,39,Female,Sales,9,60,59,1.68,3,0.2,Low
+Alex Ivanov,30,Male,Sales,9,45,27,3.61,8,0.9,High
+Max Wang,23,Male,Sales,2,31,10,4.04,3,0.5,Medium
+Ivan Ivanov,54,Female,Sales,11,45,71,3.06,7,0.8,Medium
+Lily Garcia,43,Female,Sales,8,49,19,1.07,9,0.9,High
+Dina Wang,34,Male,Sales,1,59,17,4.51,4,0.5,Medium
+Nina Brown,40,Male,Sales,0,69,76,2.19,5,0.3,Low
