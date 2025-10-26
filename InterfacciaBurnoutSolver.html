@@ -1,0 +1,1334 @@
+<!DOCTYPE HMTL>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Gestione Burnout - HR Dashboard</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #F5F3F0 0%, #E8E4E0 100%);
+            color: #2C2C2C;
+            min-height: 100%;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        header {
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #8B7355 0%, #6B5840 100%);
+            border-radius: 16px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 4px 12px rgba(139, 115, 85, 0.2);
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2C2C2C;
+            margin: 0 0 8px 0;
+            background: linear-gradient(135deg, #2C2C2C 0%, #8B7355 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: #6B6B6B;
+            font-size: 16px;
+            margin: 0;
+            font-weight: 400;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .quick-btn {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #E0DDD8;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #2C2C2C;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quick-btn:hover {
+            border-color: #8B7355;
+            background: #8B7355;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 115, 85, 0.2);
+        }
+
+        .quick-btn.active {
+            background: #8B7355;
+            border-color: #8B7355;
+            color: white;
+        }
+
+        .filters {
+            background: white;
+            padding: 28px;
+            border-radius: 16px;
+            margin-bottom: 32px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+            border: 1px solid rgba(139, 115, 85, 0.1);
+        }
+
+        .filter-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .filter-icon {
+            width: 24px;
+            height: 24px;
+            background: #8B7355;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+
+        .filter-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2C2C2C;
+            margin: 0;
+        }
+
+        .filter-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            align-items: end;
+        }
+
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #2C2C2C;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        select {
+            padding: 14px 16px;
+            border: 2px solid #E0DDD8;
+            border-radius: 12px;
+            background: white;
+            color: #2C2C2C;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236B6B6B' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        select:hover {
+            border-color: #8B7355;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(139, 115, 85, 0.15);
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #8B7355;
+            box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.1);
+        }
+
+        .clear-filters {
+            padding: 12px 20px;
+            background: transparent;
+            border: 2px solid #E0DDD8;
+            border-radius: 12px;
+            color: #6B6B6B;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            align-self: end;
+        }
+
+        .clear-filters:hover {
+            border-color: #8B7355;
+            color: #8B7355;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 28px 24px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+            border: 1px solid rgba(139, 115, 85, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8B7355 0%, #6B5840 100%);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .stat-icon.total { background: rgba(139, 115, 85, 0.1); color: #8B7355; }
+        .stat-icon.high { background: rgba(197, 48, 48, 0.1); color: #C53030; }
+        .stat-icon.medium { background: rgba(192, 86, 33, 0.1); color: #C05621; }
+        .stat-icon.low { background: rgba(47, 133, 90, 0.1); color: #2F855A; }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0 0 8px 0;
+            line-height: 1;
+        }
+
+        .stat-value.total { color: #8B7355; }
+        .stat-value.high { color: #C53030; }
+        .stat-value.medium { color: #C05621; }
+        .stat-value.low { color: #2F855A; }
+
+        .stat-label {
+            font-size: 14px;
+            color: #6B6B6B;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .stat-change {
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            background: rgba(139, 115, 85, 0.1);
+            color: #8B7355;
+            display: inline-block;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+            border: 1px solid rgba(139, 115, 85, 0.1);
+        }
+
+        .table-header {
+            padding: 24px 24px 16px;
+            background: white;
+            border-bottom: 1px solid #F5F3F0;
+        }
+
+        .table-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2C2C2C;
+            margin: 0 0 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .table-subtitle {
+            font-size: 14px;
+            color: #6B6B6B;
+            margin: 0;
+        }
+
+        .search-container {
+            position: relative;
+            margin-top: 16px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            border: 2px solid #E0DDD8;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #8B7355;
+            box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6B6B6B;
+            font-size: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #F5F3F0 0%, #E8E4E0 100%);
+        }
+
+        th {
+            padding: 20px 16px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 700;
+            color: #2C2C2C;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        th:hover {
+            background: rgba(139, 115, 85, 0.05);
+        }
+
+        td {
+            padding: 20px 16px;
+            border-top: 1px solid #F5F3F0;
+            font-size: 14px;
+            color: #2C2C2C;
+            vertical-align: middle;
+        }
+
+        tbody tr {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        tbody tr:hover {
+            background: linear-gradient(135deg, #FAFAF9 0%, #F8F6F4 100%);
+            transform: scale(1.01);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .employee-name {
+            font-weight: 600;
+            color: #2C2C2C;
+        }
+
+        .employee-role {
+            font-size: 13px;
+            color: #6B6B6B;
+            margin-top: 2px;
+        }
+
+        .risk-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .risk-high {
+            background: linear-gradient(135deg, #FFE5E5 0%, #FFCCCC 100%);
+            color: #C53030;
+            border: 1px solid rgba(197, 48, 48, 0.2);
+        }
+
+        .risk-medium {
+            background: linear-gradient(135deg, #FFF4E5 0%, #FFE5CC 100%);
+            color: #C05621;
+            border: 1px solid rgba(192, 86, 33, 0.2);
+        }
+
+        .risk-low {
+            background: linear-gradient(135deg, #E5F5E5 0%, #CCFFCC 100%);
+            color: #2F855A;
+            border: 1px solid rgba(47, 133, 90, 0.2);
+        }
+
+        .risk-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .btn-manage {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #8B7355 0%, #6B5840 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-manage:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 115, 85, 0.3);
+            background: linear-gradient(135deg, #6B5840 0%, #5A4A35 100%);
+        }
+
+        .btn-manage:active {
+            transform: translateY(0);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6B6B6B;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #E0DDD8;
+            border-radius: 50%;
+            border-top-color: #8B7355;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90%;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            animation: slideUp 0.4s ease;
+        }
+
+        .modal-header {
+            padding: 40px 40px 32px;
+            background: linear-gradient(135deg, #F5F3F0 0%, #E8E4E0 100%);
+            border-bottom: 1px solid rgba(139, 115, 85, 0.1);
+            position: relative;
+        }
+
+        .modal-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #8B7355 0%, #6B5840 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            font-weight: 700;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 24px rgba(139, 115, 85, 0.3);
+        }
+
+        .modal-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2C2C2C;
+            margin: 0 0 8px 0;
+        }
+
+        .modal-subtitle {
+            font-size: 16px;
+            color: #6B6B6B;
+            margin: 0;
+            font-weight: 500;
+        }
+
+            .modal-body {
+            padding: 40px;
+            overflow-y: auto;
+            max-height: calc(90vh - 240px);
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .modal-body::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .modal-body::-webkit-scrollbar-track {
+            background: #F5F3F0;
+            border-radius: 10px;
+        }
+        
+        .modal-body::-webkit-scrollbar-thumb {
+            background: #8B7355;
+            border-radius: 10px;
+        }
+        
+        .modal-body::-webkit-scrollbar-thumb:hover {
+            background: #6B5840;
+        }
+
+        .detail-section {
+            margin-bottom: 40px;
+        }
+
+        .detail-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2C2C2C;
+            margin: 0 0 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-icon {
+            width: 32px;
+            height: 32px;
+            background: #8B7355;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .detail-item {
+            padding: 24px;
+            background: linear-gradient(135deg, #F5F3F0 0%, #E8E4E0 100%);
+            border-radius: 16px;
+            border: 1px solid rgba(139, 115, 85, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .detail-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        .detail-label {
+            font-size: 12px;
+            color: #6B6B6B;
+            margin: 0 0 8px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .detail-value {
+            font-size: 18px;
+            color: #2C2C2C;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .alert-box {
+            padding: 28px;
+            background: linear-gradient(135deg, #FFE5E5 0%, #FFCCCC 100%);
+            border: 1px solid rgba(197, 48, 48, 0.2);
+            border-left: 6px solid #C53030;
+            border-radius: 16px;
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .alert-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(197, 48, 48, 0.05);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+
+        .alert-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #C53030;
+            margin: 0 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .alert-text {
+            font-size: 15px;
+            color: #2C2C2C;
+            margin: 0;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        .solution-box {
+            padding: 28px;
+            background: linear-gradient(135deg, #E8F4F8 0%, #D1E7ED 100%);
+            border: 1px solid rgba(139, 115, 85, 0.2);
+            border-left: 6px solid #8B7355;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .solution-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(139, 115, 85, 0.05);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+
+        .solution-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #8B7355;
+            margin: 0 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .solution-text {
+            font-size: 15px;
+            color: #2C2C2C;
+            margin: 0;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        .btn-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.9);
+            border: 2px solid rgba(139, 115, 85, 0.2);
+            font-size: 20px;
+            color: #6B6B6B;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-close:hover {
+            background: #8B7355;
+            color: white;
+            transform: rotate(90deg);
+            border-color: #8B7355;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 24px 16px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .table-container {
+                overflow-x: auto;
+            }
+
+            table {
+                min-width: 800px;
+            }
+
+            .modal-content {
+                margin: 0;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>BurnoutSolver</h1>
+            <p class="subtitle">Sistema di predizione e di problem solving per il monitoraggio del benessere dei dipendenti</p>
+            <div class="quick-actions">
+                <button class="quick-btn" onclick="filterByRisk('high')">
+                    <span>🚨</span> Casi Urgenti
+                </button>
+                <button class="quick-btn" onclick="filterByRisk('all')">
+                    <span>👥</span> Tutti i Dipendenti
+                </button>
+                <button class="quick-btn" onclick="exportReport()">
+                    <span>📊</span> Esporta Report
+                </button>
+            </div>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon total">👥</div>
+                </div>
+                <p class="stat-value total" id="totalEmployees">0</p>
+                <p class="stat-label">Totale Dipendenti</p>
+                <div class="stat-change">Aggiornato ora</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon high">🚨</div>
+                </div>
+                <p class="stat-value high" id="highRisk">0</p>
+                <p class="stat-label">Rischio Alto</p>
+                <div class="stat-change">Richiede attenzione</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon medium">⚠️</div>
+                </div>
+                <p class="stat-value medium" id="mediumRisk">0</p>
+                <p class="stat-label">Rischio Medio</p>
+                <div class="stat-change">Da monitorare</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon low">✅</div>
+                </div>
+                <p class="stat-value low" id="lowRisk">0</p>
+                <p class="stat-label">Rischio Basso</p>
+                <div class="stat-change">Situazione stabile</div>
+            </div>
+        </div>
+
+        <div class="filters">
+            <div class="filter-header">
+                <div class="filter-icon">🔍</div>
+                <h3 class="filter-title">Filtri Avanzati</h3>
+            </div>
+            <div class="filter-group">
+                <div class="filter-item">
+                    <label for="jobFilter" class="filter-label">Ruolo</label>
+                    <select id="jobFilter">
+                        <option value="all">Tutti i Ruoli</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label for="riskFilter" class="filter-label">Livello Rischio</label>
+                    <select id="riskFilter">
+                        <option value="all">Tutti i Livelli</option>
+                        <option value="high">Rischio Alto</option>
+                        <option value="medium">Rischio Medio</option>
+                        <option value="low">Rischio Basso</option>
+                    </select>
+                </div>
+                <button class="clear-filters" onclick="clearAllFilters()">
+                    Cancella Filtri
+                </button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">
+                    <span>👥</span> Elenco Dipendenti
+                </h3>
+                <p class="table-subtitle">Clicca su "Gestisci" per vedere i dettagli e le soluzioni personalizzate</p>
+                <div class="search-container">
+                    <div class="search-icon">🔍</div>
+                    <input type="text" class="search-input" id="searchInput" placeholder="Cerca dipendente per nome...">
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Ruolo</th>
+                        <th>Team</th>
+                        <th>Età</th>
+                        <th>Modalità Lavoro</th>
+                        <th>Ore Settimanali</th>
+                        <th>Rischio Burnout</th>
+                        <th>Azioni</th>
+                    </tr>
+                </thead>
+                <tbody id="employeeTable">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal" id="detailModal">
+        <div class="modal-content">
+            <button class="btn-close" onclick="closeModal()">×</button>
+            <div class="modal-header">
+                <div class="modal-avatar" id="modalAvatar"></div>
+                <h2 class="modal-title" id="modalName"></h2>
+                <p class="modal-subtitle" id="modalRole"></p>
+            </div>
+            <div class="modal-body">
+                <div class="detail-section">
+                    <h3 class="section-title">
+                        <div class="section-icon">👤</div>
+                        Informazioni Dipendente
+                    </h3>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <p class="detail-label">Età</p>
+                            <p class="detail-value" id="detailAge"></p>
+                        </div>
+                        <div class="detail-item">
+                            <p class="detail-label">Team</p>
+                            <p class="detail-value" id="detailTeam"></p>
+                        </div>
+                        <div class="detail-item">
+                            <p class="detail-label">Modalità Lavoro</p>
+                            <p class="detail-value" id="detailWorkMode"></p>
+                        </div>
+                        <div class="detail-item">
+                            <p class="detail-label">Ore Settimanali</p>
+                            <p class="detail-value" id="detailHours"></p>
+                        </div>
+                        <div class="detail-item">
+                            <p class="detail-label">Anni in Azienda</p>
+                            <p class="detail-value" id="detailYears"></p>
+                        </div>
+                        <div class="detail-item">
+                            <p class="detail-label">Livello Stress</p>
+                            <p class="detail-value" id="detailStress"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section" id="burnoutSection">
+                    <h3 class="section-title">
+                        <div class="section-icon">🔍</div>
+                        Analisi Rischio
+                    </h3>
+                    <div class="alert-box">
+                        <p class="alert-title">⚠️ Analisi Rischio Burnout</p>
+                        <p class="alert-text" id="burnoutReason"></p>
+                    </div>
+                </div>
+
+                <div class="detail-section" id="solutionSection">
+                    <h3 class="section-title">
+                        <div class="section-icon">💡</div>
+                        Piano d'Azione
+                    </h3>
+                    <div class="solution-box">
+                        <p class="solution-title">💡 Soluzione Consigliata</p>
+                        <p class="solution-text" id="solutionText"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const employees = [
+            {
+                id: 1,
+                name: "Marco Rossi",
+                job: "Ingegnere Software",
+                team: "Team Ingegneria",
+                age: 32,
+                workMode: "Remoto",
+                hours: 50,
+                years: 5,
+                stress: 8,
+                risk: "high",
+                burnoutReason: "Carico di lavoro eccessivo con 50 ore settimanali e livello di stress elevato (8/10). Il dipendente lavora costantemente oltre l'orario standard.",
+                solution: "Ridistribuzione immediata delle task al Project Manager del Team Ingegneria. Ridurre il carico di lavoro del 30% e assegnare 2 task prioritarie ad altri membri del team per le prossime 4 settimane."
+            },
+            {
+                id: 2,
+                name: "Laura Bianchi",
+                job: "Designer UX/UI",
+                team: "Team Design",
+                age: 28,
+                workMode: "Ibrido",
+                hours: 40,
+                years: 3,
+                stress: 5,
+                risk: "low",
+                burnoutReason: "Nessun segnale critico rilevato. Orario di lavoro nella norma e livello di stress gestibile.",
+                solution: "Mantenere il monitoraggio standard. Continuare con la modalità ibrida attuale che risulta equilibrata."
+            },
+            {
+                id: 3,
+                name: "Giuseppe Verdi",
+                job: "Data Scientist",
+                team: "Team Data",
+                age: 35,
+                workMode: "Remoto",
+                hours: 48,
+                years: 7,
+                stress: 7,
+                risk: "high",
+                burnoutReason: "Lavoro completamente remoto combinato con ore settimanali elevate (48h) e stress significativo. L'isolamento può amplificare il rischio burnout.",
+                solution: "Transizione a modalità ibrida: minimo 3 giorni in presenza per favorire interazione sociale e supporto del team. Riduzione a 42 ore settimanali con redistribuzione task analitiche complesse."
+            },
+            {
+                id: 4,
+                name: "Anna Ferrari",
+                job: "Project Manager",
+                team: "Team Management",
+                age: 40,
+                workMode: "Presenza",
+                hours: 45,
+                years: 10,
+                stress: 6,
+                risk: "medium",
+                burnoutReason: "Ore settimanali sopra la media (45h) con responsabilità manageriali che generano stress moderato-alto.",
+                solution: "Delegare 2 progetti secondari ad altri PM junior. Implementare sessioni di coaching per gestione dello stress. Mantenere presenza in ufficio ma con flessibilità su 1 giorno remoto."
+            },
+            {
+                id: 5,
+                name: "Luca Colombo",
+                job: "Ingegnere Software",
+                team: "Team Ingegneria",
+                age: 26,
+                workMode: "Presenza",
+                hours: 38,
+                years: 2,
+                stress: 4,
+                risk: "low",
+                burnoutReason: "Situazione ottimale: orario regolare, stress basso, buon equilibrio vita-lavoro.",
+                solution: "Nessuna azione richiesta. Continuare con il monitoraggio standard e mantenere l'attuale organizzazione del lavoro."
+            },
+            {
+                id: 6,
+                name: "Sofia Romano",
+                job: "Marketing Manager",
+                team: "Team Marketing",
+                age: 33,
+                workMode: "Ibrido",
+                hours: 43,
+                years: 6,
+                stress: 7,
+                risk: "medium",
+                burnoutReason: "Stress elevato dovuto a campagne multiple simultanee e scadenze ravvicinate. Ore settimanali sopra la norma.",
+                solution: "Posticipare lancio di 1 campagna non critica. Assegnare un marketing specialist di supporto per le prossime 6 settimane. Ridurre a 40 ore settimanali."
+            },
+            {
+                id: 7,
+                name: "Andrea Ricci",
+                job: "DevOps Engineer",
+                team: "Team Ingegneria",
+                age: 30,
+                workMode: "Remoto",
+                hours: 52,
+                years: 4,
+                stress: 9,
+                risk: "high",
+                burnoutReason: "Situazione critica: 52 ore settimanali, stress massimo (9/10), lavoro completamente remoto. Rischio burnout imminente.",
+                solution: "INTERVENTO URGENTE: Riduzione immediata a 40 ore settimanali. Passaggio a modalità ibrida (4 giorni presenza). Redistribuzione del 40% delle responsabilità on-call ad altri 2 membri del team. Colloquio con HR entro 48 ore."
+            },
+            {
+                id: 8,
+                name: "Chiara Marino",
+                job: "Data Scientist",
+                team: "Team Data",
+                age: 29,
+                workMode: "Ibrido",
+                hours: 41,
+                years: 3,
+                stress: 5,
+                risk: "low",
+                burnoutReason: "Parametri nella norma. Modalità ibrida ben bilanciata e carico di lavoro sostenibile.",
+                solution: "Situazione stabile. Mantenere l'attuale organizzazione e continuare il monitoraggio trimestrale standard."
+            },
+            {
+                id: 9,
+                name: "Matteo Greco",
+                job: "Designer UX/UI",
+                team: "Team Design",
+                age: 27,
+                workMode: "Presenza",
+                hours: 39,
+                years: 2,
+                stress: 4,
+                risk: "low",
+                burnoutReason: "Eccellente equilibrio: orario standard, stress minimo, buona integrazione nel team.",
+                solution: "Nessuna azione necessaria. Considerare come caso studio positivo per best practices di work-life balance."
+            },
+            {
+                id: 10,
+                name: "Francesca Conti",
+                job: "HR Specialist",
+                team: "Team HR",
+                age: 31,
+                workMode: "Ibrido",
+                hours: 44,
+                years: 5,
+                stress: 6,
+                risk: "medium",
+                burnoutReason: "Carico emotivo elevato tipico del ruolo HR, combinato con ore settimanali sopra la media durante periodo di recruiting intenso.",
+                solution: "Assumere HR assistant temporaneo per supporto amministrativo. Ridurre colloqui settimanali da 15 a 10. Implementare 1 giorno remoto aggiuntivo per focus su attività strategiche."
+            }
+        ];
+
+        let filteredEmployees = [...employees];
+
+        function initializeFilters() {
+            const jobs = [...new Set(employees.map(e => e.job))].sort();
+            const jobFilter = document.getElementById('jobFilter');
+            
+            jobs.forEach(job => {
+                const option = document.createElement('option');
+                option.value = job;
+                option.textContent = job;
+                jobFilter.appendChild(option);
+            });
+        }
+
+        function updateStats() {
+            document.getElementById('totalEmployees').textContent = filteredEmployees.length;
+            document.getElementById('highRisk').textContent = filteredEmployees.filter(e => e.risk === 'high').length;
+            document.getElementById('mediumRisk').textContent = filteredEmployees.filter(e => e.risk === 'medium').length;
+            document.getElementById('lowRisk').textContent = filteredEmployees.filter(e => e.risk === 'low').length;
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('employeeTable');
+            tbody.innerHTML = '';
+
+            if (filteredEmployees.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="empty-state">
+                            <div class="empty-icon">🔍</div>
+                            <p>Nessun dipendente trovato con i filtri selezionati</p>
+                        </td>
+                    </tr>
+                `;
+                updateStats();
+                return;
+            }
+
+            filteredEmployees.forEach(employee => {
+                const row = document.createElement('tr');
+                
+                const riskClass = employee.risk === 'high' ? 'risk-high' : 
+                                 employee.risk === 'medium' ? 'risk-medium' : 'risk-low';
+                const riskText = employee.risk === 'high' ? 'Alto' : 
+                                employee.risk === 'medium' ? 'Medio' : 'Basso';
+
+                row.innerHTML = `
+                    <td>
+                        <div class="employee-name">${employee.name}</div>
+                        <div class="employee-role">${employee.job}</div>
+                    </td>
+                    <td>${employee.job}</td>
+                    <td>${employee.team}</td>
+                    <td>${employee.age} anni</td>
+                    <td>${employee.workMode}</td>
+                    <td><strong>${employee.hours}h</strong></td>
+                    <td><span class="risk-badge ${riskClass}">${riskText}</span></td>
+                    <td><button class="btn-manage" onclick="openModal(${employee.id})">👁️ Gestisci</button></td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+
+            updateStats();
+        }
+
+        function applyFilters() {
+            const jobFilter = document.getElementById('jobFilter').value;
+            const riskFilter = document.getElementById('riskFilter').value;
+
+            filteredEmployees = employees.filter(employee => {
+                const jobMatch = jobFilter === 'all' || employee.job === jobFilter;
+                const riskMatch = riskFilter === 'all' || employee.risk === riskFilter;
+                return jobMatch && riskMatch;
+            });
+
+            renderTable();
+        }
+
+        function openModal(employeeId) {
+            const employee = employees.find(e => e.id === employeeId);
+            if (!employee) return;
+
+            // Generate avatar initials
+            const initials = employee.name.split(' ').map(n => n[0]).join('');
+            document.getElementById('modalAvatar').textContent = initials;
+            
+            document.getElementById('modalName').textContent = employee.name;
+            document.getElementById('modalRole').textContent = employee.job;
+            document.getElementById('detailAge').textContent = employee.age + ' anni';
+            document.getElementById('detailTeam').textContent = employee.team;
+            document.getElementById('detailWorkMode').textContent = employee.workMode;
+            document.getElementById('detailHours').textContent = employee.hours + 'h';
+            document.getElementById('detailYears').textContent = employee.years + ' anni';
+            document.getElementById('detailStress').textContent = employee.stress + '/10';
+            document.getElementById('burnoutReason').textContent = employee.burnoutReason;
+            document.getElementById('solutionText').textContent = employee.solution;
+
+            document.getElementById('detailModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').classList.remove('active');
+        }
+
+        // Search functionality
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                
+                if (searchTerm === '') {
+                    applyFilters();
+                    return;
+                }
+                
+                const jobFilter = document.getElementById('jobFilter').value;
+                const riskFilter = document.getElementById('riskFilter').value;
+                
+                filteredEmployees = employees.filter(employee => {
+                    const jobMatch = jobFilter === 'all' || employee.job === jobFilter;
+                    const riskMatch = riskFilter === 'all' || employee.risk === riskFilter;
+                    const nameMatch = employee.name.toLowerCase().includes(searchTerm);
+                    return jobMatch && riskMatch && nameMatch;
+                });
+                
+                renderTable();
+            });
+        }
+
+        // Quick filter functions
+        function filterByRisk(risk) {
+            document.getElementById('riskFilter').value = risk;
+            applyFilters();
+            
+            // Update active state of quick buttons
+            document.querySelectorAll('.quick-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function clearAllFilters() {
+            document.getElementById('jobFilter').value = 'all';
+            document.getElementById('riskFilter').value = 'all';
+            document.getElementById('searchInput').value = '';
+            applyFilters();
+            
+            // Remove active state from quick buttons
+            document.querySelectorAll('.quick-btn').forEach(btn => btn.classList.remove('active'));
+        }
+
+        function exportReport() {
+            // Simulate export functionality
+            const button = event.target;
+            const originalText = button.innerHTML;
+            
+            button.innerHTML = '<span class="loading-spinner"></span> Esportando...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.innerHTML = '✅ Report Esportato';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                }, 2000);
+            }, 1500);
+        }
+
+        // Enhanced modal interactions
+        function closeModal() {
+            document.getElementById('detailModal').classList.remove('active');
+        }
+
+        // Event listeners
+        document.getElementById('jobFilter').addEventListener('change', applyFilters);
+        document.getElementById('riskFilter').addEventListener('change', applyFilters);
+
+        document.getElementById('detailModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+            if (e.key === '/' && !e.target.matches('input')) {
+                e.preventDefault();
+                document.getElementById('searchInput').focus();
+            }
+        });
+
+        // Initialize everything
+        initializeFilters();
+        setupSearch();
+        renderTable();
+
+        // Auto-refresh stats every 30 seconds (simulated)
+        setInterval(() => {
+            const changeElements = document.querySelectorAll('.stat-change');
+            changeElements.forEach(el => {
+                el.style.opacity = '0.5';
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                }, 500);
+            });
+        }, 30000);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9942cde0671d83b2',t:'MTc2MTQwNjc0MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
