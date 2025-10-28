@@ -114,9 +114,5 @@
     </blockquote>
   </section>
 
-  <footer>
-    <p>© 2026 iParthenope Team — The Big Hack Special Edition</p>
-  </footer>
-
 </body>
 </html>
