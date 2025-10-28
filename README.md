@@ -50,7 +50,7 @@
       <li>Livelli di stress e soddisfazione (survey interne)</li>
       <li>Carichi di lavoro e performance</li>
     </ul>
-    <p>Dataset di riferimento: <a href="https://www.kaggle.com/datasets/ankam6010/synthetic-hr-burnout-dataset" target="_blank">Synthetic HR Burnout Dataset (Kaggle)</a></p>
+    <p>Dataset di riferimento: <a href="https://www.kaggle.com/datasets/ankam6010/synthetic-hr-burnout-dataset" target="_blank">Synthetic HR Burnout Dataset (Kaggle) (si specifica che il Dataset non viene utilizzato per fini commerciali, ma semplicemente per fini accademici e della sfida) </a></p>
     <h3>2️⃣ Modello predittivo</h3>
     <p>Un modello di <strong>Machine Learning supervisionato</strong> (Random Forest / XGBoost) stima la probabilità di burnout per ogni dipendente.</p>
     <p>L’algoritmo classifica il rischio in <strong>Basso / Medio / Alto</strong> e aggiorna le previsioni in tempo reale.</p>
