@@ -4,7 +4,7 @@
   <header>
     <h1>🧠 BurnoutSolver</h1>
     <p><strong>Predict to Decide — Ottimizzare l’efficienza operativa con l’AI</strong></p>
-    <p>Progetto presentato da <strong>iParthenope Team</strong> (Profili GitHub del team: VinceSal , [@dangelosimone](https://github.com/dangelosimone) , @LuigiGalluccio(https://github.com/LuigiGalluccio) , @alessiovetrano(https://github.com/alessiovetrano) , @GiuseppeFiorillo(https://github.com/GiuseppeFiorillo) ) durante <em>The Big Hack – Special Edition (25-26 Ottobre 2026)</em></p>
+    <p>Progetto presentato da <strong>iParthenope Team</strong> (Profili GitHub del team: VinceSal , @dangelosimone(https://github.com/dangelosimone) , @LuigiGalluccio(https://github.com/LuigiGalluccio) , @alessiovetrano(https://github.com/alessiovetrano) , @GiuseppeFiorillo(https://github.com/GiuseppeFiorillo) ) durante <em>The Big Hack – Special Edition (25-26 Ottobre 2026)</em></p>
   </header>
 
   <section>
